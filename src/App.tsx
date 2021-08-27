@@ -19,6 +19,7 @@ export function App() {
   return (
     <>
       <TransactionProvider>
+        
         <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
         
         <Home />
@@ -27,6 +28,7 @@ export function App() {
           isOpen={isNewTransactionModalOpen} 
           closeModal={handleCloseNewTransactionModal}
         />
+        
       </TransactionProvider>
     </>
   );

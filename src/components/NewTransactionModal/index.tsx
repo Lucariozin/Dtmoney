@@ -1,5 +1,9 @@
 import * as Styled from './styles';
 
+import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 import incomeImg from '../../assets/img/income.svg';
 import outcomeImg from '../../assets/img/outcome.svg';
 import closeImg from '../../assets/img/close.svg';
@@ -31,9 +35,42 @@ export function NewTransactionModal({ isOpen, closeModal }: NewTransactionModalP
     setCategory('');
   }
 
+  function validateTransactionForm(): string[] {
+    const errors = [];
+
+    if (!title) {
+      errors.push('Campo "Título" não pode estar vázio.');
+    }
+
+    if (!value) {
+      errors.push('Defina um valor para sua nova transação.');
+    }
+
+    if (!category) {
+      errors.push('Defina uma categoria para sua nova transação.');
+    }
+
+    return errors;
+  }
+
   async function handleCreateNewTransaction(e: FormEvent) {
     e.preventDefault();
-    setAllStatesToInitialValues();
+    
+    const errors = validateTransactionForm();
+
+    if (errors.length > 0) {
+      errors.map((error) => {
+        return toast.warning(error, {
+          theme: "colored",
+          style: {
+            'fontSize': '16px',
+            'fontWeight': 600,
+          },
+        })
+      });
+
+      return;
+    }
 
     const data = {
       type,
@@ -45,6 +82,7 @@ export function NewTransactionModal({ isOpen, closeModal }: NewTransactionModalP
     await createTransaction(data);
 
     closeModal();
+    setAllStatesToInitialValues();
   }
 
   return (

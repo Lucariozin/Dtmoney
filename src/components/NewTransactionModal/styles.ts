@@ -17,7 +17,7 @@ export const H2 = styled.h2`
 export const Input = styled.input`
   width: 100%;
   font-size: 1.6rem;
-  color: var(--gray);
+  color: var(--dark-gray);
   padding: 2rem 2.4rem;
   background-color: var(--medium-gray);
   border: 0.1rem solid #D7D7D7;
